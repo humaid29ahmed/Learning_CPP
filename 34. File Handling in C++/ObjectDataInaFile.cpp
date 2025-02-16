@@ -35,7 +35,8 @@ class Book{
 
         int storeBook();
         void viewAllBooks();
-        void searchBook(char* t);
+        void searchBook(const char*);
+        void deleteBook(const char*);
 
 };
 
@@ -74,7 +75,7 @@ void Book::viewAllBooks()
     }
 }
 
-void Book::searchBook(char* t )
+void Book::searchBook(const char* t )
 {
     int counter = 0;
     ifstream fin;
@@ -105,17 +106,45 @@ void Book::searchBook(char* t )
     }
 
 }
+
+void Book::deleteBook(const char* t)
+{
+    ifstream fin;
+    ofstream fout;
+
+    fin.open("Book.txt", ios::in|ios::binary);
+    fout.open("tempfile.txt", ios::out|ios::binary);
+
+    while(fin.read((char*)this, sizeof(*this)))
+    {
+        cout<<"Record Written"<<endl;
+        if(strcmp(t,title))
+        {
+            cout<<"Record Written"<<endl;
+            fout.write((char*)this, sizeof(*this));
+        }
+    }
+    fin.close();
+    fout.close();
+    remove("Book.txt");
+    rename("tempfile.txt", "Book.txt");
+}
 int main()
 {
     Book b1,b2;
 
     // b1.getBookdata();
-    // b1.showBookData();
+    // // // b1.showBookData();
     // b1.storeBook();
-    // b2.showBookData();
-    // b2.storeBook();
+    // // // b2.showBookData();
+    // // b2.storeBook();
+    // b1.viewAllBooks();
+    // b1.searchBook("1001 Nights");
+    // cout<<"\n-------------------------------------------------------------------------------\n";
+    
+    b1.deleteBook("1001 Nights");
+    cout<<"\n-------------------------------------------------------------------------------\n";
     b1.viewAllBooks();
-    b1.searchBook("Program with Hummy");
 
     return 0;
 }
