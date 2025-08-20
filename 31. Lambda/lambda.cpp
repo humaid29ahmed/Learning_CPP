@@ -10,7 +10,7 @@ int main()
 */
     []{cout<<"Hello, I am Lambda"<<endl;}(); // lambda function which doesnt take any value
 
-    int number = [](int a, int b ){ return a+b;};// lamdda function which takes value of any type due to auto keyword and return the value 
+    auto number = [](int a, int b ){ return a+b;};// lamdda function which takes value of any type due to auto keyword and return the value 
 
     cout<<number(15,20);
     return 0;
